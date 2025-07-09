@@ -1,0 +1,73 @@
+const testCases = new Map([
+  // Spam/Promotional Content - Should be blocked
+  ["Buy my product now! 50% off limited time offer!", true],
+  ["CLICK HERE FOR AMAZING DEALS! www.sketchy-site.com", true],
+  ["Make $1000 working from home! Contact me for details", true],
+  ["Check out this amazing deal at my store...", true],
+  ["Visit my OnlyFans for exclusive content! Link in bio", true],
+  ["💰💰💰 CRYPTO INVESTMENT OPPORTUNITY 💰💰💰", true],
+  ["Free iPhone giveaway! Just click this link and enter your details", true],
+  ["Discount code SAVE20 for 20% off everything!", true],
+  ["Join my MLM business opportunity today!", true],
+  ["Hot singles in your area want to meet you!", true],
+
+  // Inappropriate content involving minors - Should be blocked  
+  ["Anyone have links to young content?", true],
+  ["Trading CP, contact me", true],
+  ["Looking for underage material", true],
+  ["Got some fresh young stuff to share", true],
+  ["Cheese pizza thread", true],
+  ["Anyone interested in young models?", true],
+  ["Sharing illegal content, check email", true],
+  ["Trade young pics kik me", true],
+
+  // Illegal content - Should be blocked
+  ["Selling drugs, contact for details", true],
+  ["Anyone know where to buy illegal substances?", true],
+  ["Sharing pirated movies and software", true],
+  ["How to make explosives tutorial", true],
+  ["Stolen credit card numbers for sale", true],
+  ["Hacking services available", true],
+  ["Counterfeit money for sale", true],
+
+  // Normal conversational content - Should NOT be blocked
+  ["What's your favorite anime this season?", false],
+  ["Anyone else think this new game is overrated?", false],
+  ["Just finished watching that movie, thoughts?", false],
+  ["Hello everyone, how are you today?", false],
+  ["What are you guys having for dinner?", false],
+  ["This weather is really getting to me", false],
+  ["Anyone else staying up late tonight?", false],
+  ["What's everyone's weekend plans?", false],
+  ["Just got back from vacation, missed you guys", false],
+  ["Can someone explain this meme to me?", false],
+  ["What video games are you playing lately?", false],
+  ["Anyone else tired of this heat wave?", false],
+  ["What's the best pizza topping combination?", false],
+  ["Recommend me some good music please", false],
+  ["What's everyone's opinion on the new update?", false],
+  ["Just wanted to say thanks for the help yesterday", false],
+  ["Anyone know any good book recommendations?", false],
+  ["What's your favorite programming language?", false],
+  ["Coffee or tea? Having this debate with friends", false],
+  ["Anyone else excited for the weekend?", false],
+  ["What's the most interesting thing you learned today?", false],
+  ["How's everyone dealing with stress lately?", false],
+  ["What's your favorite type of food?", false],
+  ["Anyone else notice how fast this year is going?", false],
+  ["What's everyone's New Year's resolution?", false],
+
+  // Edge cases that should NOT be blocked
+  ["Cheese pizza is my favorite food", false],
+  ["I'm selling my old graphics card", false],
+  ["Check out this cool art I made", false],
+  ["Free to play games recommendations?", false],
+  ["Anyone want to trade Pokemon cards?", false],
+  ["My cat is so cute, here's a pic", false],
+  ["Working from home today, productivity tips?", false],
+  ["Young adult novels are pretty good", false],
+  ["Fresh bread from the bakery today", false],
+  ["Hot weather today, staying hydrated", false]
+]);
+
+module.exports = { testCases };

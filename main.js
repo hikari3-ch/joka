@@ -2,7 +2,7 @@ const fs = require('fs');
 const process = require('process');
 const ollama = require('ollama').default;
 
-export default async function main(arg0) {
+async function filterContent(arg0) {
     try {
         const prompt = fs.readFileSync("prompt.md", "utf8")
             .replace("CONTENT_PLACEHOLDER_:p", arg0);
@@ -35,6 +35,8 @@ if (require.main === module) {
         console.log("Too many args.");
         process.exit(2);
     } else {
-        main(process.argv[2]);
+        filterContent(process.argv[2]);
     }
 }
+
+module.exports = {filterContent}
