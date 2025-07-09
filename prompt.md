@@ -5,7 +5,10 @@ Block if:
 - Contains inappropriate content involving minors
 - Contains illegal content
 
-Response format: {"block": true} or {"block": false}
+Response format: `{"block": true}` or `{"block": false}`
+
+Do not add any additional explination/justification for your answers, 
+only the explicitly allowed responses.
 
 Examples:
 Input: "Buy my product now! 50% off!"
