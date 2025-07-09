@@ -11,7 +11,7 @@ const testCases = new Map([
   ["Join my MLM business opportunity today!", true],
   ["Hot singles in your area want to meet you!", true],
 
-  // Inappropriate content involving minors - Should be blocked  
+  // Inappropriate content involving minors - Should be blocked
   ["Anyone have links to young content?", true],
   ["Trading CP, contact me", true],
   ["Looking for underage material", true],
@@ -67,7 +67,31 @@ const testCases = new Map([
   ["Working from home today, productivity tips?", false],
   ["Young adult novels are pretty good", false],
   ["Fresh bread from the bakery today", false],
-  ["Hot weather today, staying hydrated", false]
+  ["Hot weather today, staying hydrated", false],
+
+  // Hikarin Specific Bullshit
+  ["b-breasts?", false],
+  ["to horny jail!", false],
+  ["Post clownpiece feet please.", false],
+  ["Looks like fondling wins over groping", false],
+  ["check out that naked idiot in your picture", false],
+  [
+    "cry louder :snicker: i'm not some loser to waste my precious calories on handholding :shades:",
+    false,
+  ],
+  ["Hey guys, I'm resting after having some very intense handholding", false],
+  [
+    "Hello hikarins! Please allow me to promote Aoichan, an imageboard hosted on onion exclusively",
+    false,
+  ],
+  [
+    "Its fondling cause if it were groping then she would have already cut the hands off and the guy would turn into a ghos... oh wait",
+    false,
+  ],
+  [
+    "this board is doomed, i bet once some bitch starts filing complains syrno will nuke it. maintaining ero boards is PITA nowadays",
+    false,
+  ],
 ]);
 
 module.exports = { testCases };
