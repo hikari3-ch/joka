@@ -5,7 +5,7 @@ const ollama = require('ollama').default;
 async function filterContent(arg0, retryCount = 0) {
   const MAX_RETRIES = 3;
 
-  const prompt = fs.readFileSync('prompt.md', 'utf8').replace('CONTENT_PLACEHOLDER_:p', arg0);
+  const prompt = fs.readFileSync('prompt.md', 'utf8').replace('CONTENTPLACEHOLDER:p', arg0);
 
   // Create the .dev file to enable debugging logs
   if (fs.existsSync('.dev')) {

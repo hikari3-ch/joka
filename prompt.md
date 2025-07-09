@@ -38,6 +38,6 @@ Input: "Hello everyone, how are you today?"
 Output: {"block": false}
 
 Analyze this post:
-CONTENT*PLACEHOLDER*:p
+CONTENTPLACEHOLDER:p
 
 Response:
