@@ -3,49 +3,46 @@ const process = require('process');
 const ollama = require('ollama').default;
 
 async function filterContent(arg0, retryCount = 0) {
-    const MAX_RETRIES = 3;
-    
-        const prompt = fs.readFileSync("prompt.md", "utf8")
-            .replace("CONTENT_PLACEHOLDER_:p", arg0);
-        
-        // Create the .dev file to enable debugging logs
-        if (fs.existsSync(".dev")) {
-            console.log(prompt);
-            console.log("----------------------------");
-        }
+  const MAX_RETRIES = 3;
 
-        const response = await ollama.chat({
-            model: "llama3.2:3b",
-            messages: [
-                { role: "user", content: prompt },
-            ],
-        });
-        
-        // Check to see if the content is
-        // properly formatted and re-try if not
-        try {
-            const res = JSON.parse(response.message.content);
-            if (fs.existsSync(".dev")) console.log(res.block);
-            return res.block;
-        } catch {
-            if (retryCount < MAX_RETRIES) {
-                return filterContent(arg0, retryCount + 1);
-            } else {
-                throw new Error("Failed to parse response after maximum retries");
-            }
-        }
+  const prompt = fs.readFileSync('prompt.md', 'utf8').replace('CONTENT_PLACEHOLDER_:p', arg0);
+
+  // Create the .dev file to enable debugging logs
+  if (fs.existsSync('.dev')) {
+    console.log(prompt);
+    console.log('----------------------------');
+  }
+
+  const response = await ollama.chat({
+    model: 'llama3.2:3b',
+    messages: [{ role: 'user', content: prompt }],
+  });
+
+  // Check to see if the content is
+  // properly formatted and re-try if not
+  try {
+    const res = JSON.parse(response.message.content);
+    if (fs.existsSync('.dev')) console.log(res.block);
+    return res.block;
+  } catch {
+    if (retryCount < MAX_RETRIES) {
+      return filterContent(arg0, retryCount + 1);
+    } else {
+      throw new Error('Failed to parse response after maximum retries');
+    }
+  }
 }
 
 if (require.main === module) {
-    if (process.argv.length < 3) {
-        console.log("Missing content.");
-        process.exit(2);
-    } else if (process.argv.length > 3) {
-        console.log("Too many args.");
-        process.exit(2);
-    } else {
-        filterContent(process.argv[2]);
-    }
+  if (process.argv.length < 3) {
+    console.log('Missing content.');
+    process.exit(2);
+  } else if (process.argv.length > 3) {
+    console.log('Too many args.');
+    process.exit(2);
+  } else {
+    filterContent(process.argv[2]);
+  }
 }
 
-module.exports = {filterContent}
+module.exports = { filterContent };

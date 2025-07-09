@@ -34,12 +34,14 @@ Jōka (浄化) is an AI-powered content moderation system built for [hikari3.ch]
 ## Setup
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/hikari3-ch/joka
    cd joka
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
@@ -59,6 +61,7 @@ node main.js "Your content to filter here"
 ```
 
 **Examples:**
+
 ```bash
 # This should return true (blocked)
 node main.js "Buy my product now! 50% off!"
@@ -73,8 +76,8 @@ node main.js "Hello everyone, how are you today?"
 const { filterContent } = require('./main.js');
 
 async function example() {
-    const shouldBlock = await filterContent("Some content to check");
-    console.log(shouldBlock); // true or false
+  const shouldBlock = await filterContent('Some content to check');
+  console.log(shouldBlock); // true or false
 }
 ```
 
@@ -87,8 +90,9 @@ npm run test-static
 ```
 
 This will run through all test cases in [`testing/static_cases.test.js`](testing/static_cases.test.js) and show:
+
 - ✅ Passed tests
-- ❌ Failed tests  
+- ❌ Failed tests
 - 📊 Total tests run
 - 🎯 Success rate percentage
 
@@ -97,13 +101,16 @@ This will run through all test cases in [`testing/static_cases.test.js`](testing
 ### `filterContent(content, retryCount = 0)`
 
 **Parameters:**
+
 - `content` (string): The text content to analyze
 - `retryCount` (number): Internal retry counter (default: 0) (DO NOT MODIFY THIS)
 
 **Returns:**
+
 - `Promise<boolean>`: `true` if content should be blocked, `false` if allowed
 
 **Throws:**
+
 - Error if maximum retries (3) exceeded due to invalid AI responses
 - Error if Ollama connection fails
 
@@ -116,6 +123,7 @@ The system blocks content that contains:
 - **Illegal content**: Drug sales, hacking services, etc.
 
 **Allowed content includes:**
+
 - Normal conversations and discussions
 - Adult content (between consenting adults)
 - Polite imageboard promotions
@@ -144,15 +152,18 @@ Aim to maintain or improve the current ~95% accuracy rate.
 ## Troubleshooting
 
 **"Error: connect ECONNREFUSED"**
+
 - Ensure Ollama is running: `systemctl start ollama.service`
 - Check if the model is available: `ollama list`
 
 **"Failed to parse response after maximum retries"**
+
 - The AI is returning malformed JSON
 - Try adjusting the prompt in `prompt.md`
 - Check debug output with `.dev` file
 
 **Tests failing unexpectedly**
+
 - Verify Ollama model is working: `ollama run llama3.2:3b`
 - Check if prompt.md has been modified
 - AI responses can vary, some variance is normal

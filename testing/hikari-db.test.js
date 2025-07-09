@@ -1,20 +1,20 @@
 // Runs tests agains posts in the Hikari3 MongoDB, where everything should be
 // {block: false}
 
-const { filterContent } = require("../main.js");
+const { filterContent } = require('../main.js');
 const { MongoClient } = require('mongodb');
 
 async function getMessageFromPosts() {
   const client = new MongoClient('mongodb://localhost:27017');
-  
+
   try {
     await client.connect();
     const db = client.db('lynxchan');
     const collection = db.collection('posts');
-    
+
     // Query to get only the message field from all posts
     const posts = await collection.find({}, { projection: { message: 1, _id: 0 } }).toArray();
-    
+
     return posts.map((m) => m.message);
   } finally {
     await client.close();
@@ -22,15 +22,15 @@ async function getMessageFromPosts() {
 }
 
 async function runDBTests() {
-  console.log("Running content filter tests...\n");
-  
+  console.log('Running content filter tests...\n');
+
   let passed = 0;
   let failed = 0;
   let testNumber = 1;
 
   try {
     const posts = await getMessageFromPosts();
-    
+
     for (const post of posts) {
       // Skip null/undefined messages
       if (!post) {
@@ -38,9 +38,9 @@ async function runDBTests() {
         testNumber++;
         continue;
       }
-      
+
       console.log(`Message ${testNumber}: Testing "${post.substring(0, 50)}${post.length > 50 ? '...' : ''}"`);
-      
+
       try {
         const res = await filterContent(post);
         if (res.block === true) {
@@ -54,20 +54,19 @@ async function runDBTests() {
         console.log(`  🚨 ERROR: filterContent failed - ${error.message}`);
         failed += 1;
       }
-      
+
       testNumber += 1;
     }
-    
+
     // Display summary
     console.log(`\n=== TEST SUMMARY ===`);
     console.log(`Total tests: ${testNumber - 1}`);
     console.log(`Passed: ${passed}`);
     console.log(`Failed: ${failed}`);
     console.log(`Success rate: ${((passed / (testNumber - 1)) * 100).toFixed(1)}%`);
-    
   } catch (error) {
-    console.error("Failed to run tests:", error.message);
+    console.error('Failed to run tests:', error.message);
   }
 }
 
-runDBTests()
+runDBTests();

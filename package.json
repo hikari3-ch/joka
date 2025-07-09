@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "test-static": "node testing/static.test.js",
-    "test-dynamic": "node testing/hikari-db.test.js"
+    "test-dynamic": "node testing/hikari-db.test.js",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "mongodb": "^6.17.0",
-    "ollama": "^0.5.16"
+    "ollama": "^0.5.16",
+    "prettier": "^3.6.2"
   }
 }
