@@ -7,8 +7,11 @@ export default async function main(arg0) {
         const prompt = fs.readFileSync("prompt.md", "utf8")
             .replace("CONTENT_PLACEHOLDER_:p", arg0);
         
-        console.log(prompt);
-        console.log("----------------------------");
+        // Create the .dev file to enable debugging logs
+        if (fs.existsSync(".dev")) {
+            console.log(prompt);
+            console.log("----------------------------");
+        }
 
         const response = await ollama.chat({
             model: "llama3.2:3b",
