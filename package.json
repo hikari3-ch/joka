@@ -2,9 +2,11 @@
   "name": "joka",
   "version": "1.0.0",
   "scripts": {
-    "test-static": "node testing/static.test.js"
+    "test-static": "node testing/static.test.js",
+    "test-dynamic": "node testing/hikari-db.test.js"
   },
   "dependencies": {
+    "mongodb": "^6.17.0",
     "ollama": "^0.5.16"
   }
 }

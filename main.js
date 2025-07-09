@@ -5,7 +5,6 @@ const ollama = require('ollama').default;
 async function filterContent(arg0, retryCount = 0) {
     const MAX_RETRIES = 3;
     
-    try {
         const prompt = fs.readFileSync("prompt.md", "utf8")
             .replace("CONTENT_PLACEHOLDER_:p", arg0);
         
@@ -35,10 +34,6 @@ async function filterContent(arg0, retryCount = 0) {
                 throw new Error("Failed to parse response after maximum retries");
             }
         }
-    } catch (error) {
-        console.error("Error:", error);
-        process.exit(1);
-    }
 }
 
 if (require.main === module) {
