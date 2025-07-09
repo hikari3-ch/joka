@@ -19,7 +19,7 @@ Things that ARE allowed:
 - Anime/gaming discussions with sexual themes (as long as no minors)
 - Joking about being horny or sexual topics between adults
 
-Response format: `{"block": true}` or `{"block": false}`
+Response format: `{"block":true}` or `{"block":false}`
 
 Do not add any additional explanation/justification for your answers, 
 only the explicitly allowed responses.

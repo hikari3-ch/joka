@@ -12,28 +12,7 @@ async function runTests() {
         console.log(`Test ${testNumber}: Testing "${content.substring(0, 50)}${content.length > 50 ? '...' : ''}"`);
         
         try {
-            // Capture the output from filterContent
-            const originalLog = console.log;
-            let output = '';
-            console.log = (msg) => { output += msg; };
-            
-            await filterContent(content);
-            
-            // Restore console.log
-            console.log = originalLog;
-            
-            // Parse the JSON response
-            let result;
-            try {
-                result = JSON.parse(output);
-            } catch (parseError) {
-                console.log(`  ❌ FAIL: Could not parse JSON response: ${output}`);
-                failed++;
-                testNumber++;
-                continue;
-            }
-            
-            const actualBlock = result.block;
+            const actualBlock = await filterContent(content);
             
             if (actualBlock === shouldBlock) {
                 console.log(`  ✅ PASS: Expected ${shouldBlock}, got ${actualBlock}`);
@@ -61,7 +40,6 @@ async function runTests() {
     return { passed, failed, total: testNumber - 1 };
 }
 
-// Run tests if this file is executed directly
 if (require.main === module) {
     runTests().catch(console.error);
 }
