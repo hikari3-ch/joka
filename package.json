@@ -1,4 +1,9 @@
 {
+  "name": "joka",
+  "version": "1.0.0",
+  "scripts": {
+    "test-static": "node testing/static.test.js"
+  },
   "dependencies": {
     "ollama": "^0.5.16"
   }
