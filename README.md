@@ -9,3 +9,6 @@
 ## What is Jōka?
 
 Jōka (浄化) is an AI-powered content moderation system built for [hikari3.ch](https://hikari3.ch/). It is designed to detect and filter illegal or harmful material—such as unsolicited advertisements and child sexual abuse content before it appears on the site.
+
+> [!IMPORTANT]  
+> **HELP WANTED!!** Any messing around inside of the prompt to make the bot more accurate is gladly appreciated, as it is only around 90% accurate right now, meaning that false positives occur around 10% of the time.
