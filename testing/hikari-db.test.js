@@ -22,7 +22,7 @@ async function getMessageFromPosts() {
 }
 
 async function runDBTests() {
-  console.log('Running content filter tests...\n');
+  console.log('Running database content filter tests...\n');
 
   let passed = 0;
   let failed = 0;
@@ -30,43 +30,52 @@ async function runDBTests() {
 
   try {
     const posts = await getMessageFromPosts();
-
+    
     for (const post of posts) {
       // Skip null/undefined messages
       if (!post) {
-        console.log(`Message ${testNumber}: Skipping null/undefined message`);
+        console.log(`Test ${testNumber}: Skipping null/undefined message`);
         testNumber++;
         continue;
       }
-
-      console.log(`Message ${testNumber}: Testing "${post.substring(0, 50)}${post.length > 50 ? '...' : ''}"`);
-
+      
+      console.log(`Test ${testNumber}: Testing "${post.substring(0, 50)}${post.length > 50 ? '...' : ''}"`);
+      
       try {
-        const res = await filterContent(post);
-        if (res.block === true) {
-          console.log(`  ❌ FAIL: Expected post to pass, got block.`);
-          failed += 1;
+        const shouldBlock = await filterContent(post);
+        
+        if (shouldBlock === false) {
+          console.log(`  ✅ PASS: Expected false, got ${shouldBlock}`);
+          passed++;
         } else {
-          console.log(`  ✅ PASS: Expected pass, got pass`);
-          passed += 1;
+          console.log(`  ❌ FAIL: Expected false, got ${shouldBlock}`);
+          failed++;
         }
       } catch (error) {
-        console.log(`  🚨 ERROR: filterContent failed - ${error.message}`);
-        failed += 1;
+        console.log(`  ❌ ERROR: ${error.message}`);
+        failed++;
       }
-
-      testNumber += 1;
+      
+      testNumber++;
+      console.log(); // Empty line for readability
     }
-
-    // Display summary
-    console.log(`\n=== TEST SUMMARY ===`);
-    console.log(`Total tests: ${testNumber - 1}`);
-    console.log(`Passed: ${passed}`);
-    console.log(`Failed: ${failed}`);
-    console.log(`Success rate: ${((passed / (testNumber - 1)) * 100).toFixed(1)}%`);
+    
+    console.log(`\nTest Results:`);
+    console.log(`✅ Passed: ${passed}`);
+    console.log(`❌ Failed: ${failed}`);
+    console.log(`📊 Total: ${testNumber - 1}`);
+    console.log(`🎯 Success Rate: ${((passed / (testNumber - 1)) * 100).toFixed(1)}%`);
+    
+    return { passed, failed, total: testNumber - 1 };
+    
   } catch (error) {
-    console.error('Failed to run tests:', error.message);
+    console.error('Failed to run database tests:', error.message);
+    return { passed: 0, failed: 1, total: 1 };
   }
 }
 
-runDBTests();
+if (require.main === module) {
+  runDBTests().catch(console.error);
+}
+
+module.exports = { runDBTests, getMessageFromPosts };
