@@ -22,22 +22,18 @@ Things that ARE allowed:
 - Anime/gaming discussions with sexual themes (as long as no minors)
 - Joking about being horny or sexual topics between adults
 
-Response format: `{"block":true}` or `{"block":false}`
-
-Do not add any additional explanation/justification for your answers,
-only the explicitly allowed responses.
-
 Examples:
 Input: "Buy my product now! 50% off!"
 Output: {"block": true}
+Explanation: This is an advertisement.
 
 Input: "Discount code SAVE20 for 20% off everything!"
 Output: {"block": true}
+Explanation: This is an advertisement.
 
 Input: "Hello everyone, how are you today?"
 Output: {"block": false}
+Explanation: This is just asking how people are.
 
 Analyze this post:
 CONTENTPLACEHOLDER:p
-
-Response:

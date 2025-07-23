@@ -2,11 +2,8 @@ const fs = require('fs');
 const process = require('process');
 const ollama = require('ollama').default;
 
-async function filterContent(arg0, retryCount = 0) {
-  const MAX_RETRIES = 3;
-
-  const prompt = fs.readFileSync('prompt.md', 'utf8').replace('CONTENTPLACEHOLDER:p', arg0);
-
+const prompt = fs.readFileSync('prompt.md', 'utf8');
+async function filterContent(arg0) {
   // Create the .dev file to enable debugging logs
   if (fs.existsSync('.dev')) {
     console.log(prompt);
@@ -15,7 +12,16 @@ async function filterContent(arg0, retryCount = 0) {
 
   const response = await ollama.chat({
     model: 'llama3.2:3b',
-    messages: [{ role: 'user', content: prompt }],
+    messages: [{ role: 'user', content: prompt.replace('CONTENTPLACEHOLDER:p', arg0) }],
+    format: {
+      type: 'object',
+      properties: {
+        block: {
+          type: 'boolean',
+        },
+      },
+      required: ['block'],
+    },
   });
 
   // Check to see if the content is
@@ -25,11 +31,7 @@ async function filterContent(arg0, retryCount = 0) {
     if (fs.existsSync('.dev')) console.log(res.block);
     return res.block;
   } catch {
-    if (retryCount < MAX_RETRIES) {
-      return filterContent(arg0, retryCount + 1);
-    } else {
-      throw new Error('Failed to parse response after maximum retries');
-    }
+    throw new Error('Failed to parse response even with structured output.');
   }
 }
 
